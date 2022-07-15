@@ -127,7 +127,7 @@ The below playbook is divided into two parts, each of them is intended to perfor
       state: latest
 ```
 
-Update GIT with the latest code
+## Step 5: Update GIT with the latest code
 
 To Commit the code into GitHub execute the below command and make a pull request:
 
@@ -150,9 +150,76 @@ Create a pull request and merge `branch` to `main`.
 ![Merge request](./media/merge.png)
 
 
-Verify that all artifacts are saved within the jenkin-ansible server:
+On the terminal, checkout from the `prj-11` into the `main`, and run `git pull`.
+
+Verify that all artifacts are saved within the `Jenkins-Ansible` server:
 
 ```
 /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/
 ```
 
+![Jenkins build](./media/jenkinsbuild.png)
+
+
+## Step 6 - Run first Ansible test
+
+For ansible to access the other servers, we have to generate and share ansible private key with each server.
+
+- On jenkins-ansible, edit sshd configuration `sudo vi /etc/ssh/sshd_config` to the following: 
+
+```
+Host jenkins_ansible
+    Host name <Public ip>
+    User ubuntu
+    IdentityFile <path to pem>
+    ForwardAgent yes
+    ControlPath /tmp/ansible-ssh-%h-%p_%r
+    ControlMaster auto
+    ControlPersist 10m
+```
+
+Connect to the `Jenkins-Ansible` server through VSCode or your preferred code editor and run:
+
+```
+ansible-playbook -i /var/lib/jenkins/jobs/ansible/builds/<build-number>/archive/inventory/dev.yml /var/lib/jenkins/jobs/ansible/builds/<build-number>/archive/playbooks/common.yml
+```
+
+![Ansible task](./media/wireshark2.png)
+
+![Ansible task](./media/wireshark.png)
+
+Confirm if wireshark was installed/updated:
+
+![Wireshark test](./media/wiresharktest.png)
+
+Ansible was updated with additional tasks to create a `sample` directory, `ansible.txt` file and change timezone in `playbook/common.yml`.
+
+```
+- name: create directory, file and set timezone on all servers
+  hosts: webservers, nfs, db, lb
+  become: yes
+  tasks:
+  
+  - name: create a directory
+    file:
+      path: /home/sample
+      state: directory
+      
+  - name: create a file 
+    file: 
+      path: /home/sample/ansible.txt
+      state: touch
+      
+  - name: set timezone
+    timezone:
+      name: Africa/Lagos 
+```
+
+Repeat step 5 and run the ansible playbook command with the latest build number:
+
+![Ansible task](./media/ansibletask.png)
+
+
+Next, SSH into any of the servers to confirm successful task execution.
+
+![Task test](./media/task2test.png)
