@@ -40,6 +40,10 @@ Archive confirmation:
 
 ![Confirm archive](./media/jenkinstest.png)
 
+The architecture of the setup so far looks like the diagram below:
+
+![Architecture](./media/archy.png)
+
 ## Step 2 - Ansible Development
 
 On Jenkins-Ansible server, create a folder named `ansible`.
@@ -191,6 +195,13 @@ ansible-playbook -i /var/lib/jenkins/jobs/ansible/builds/<build-number>/archive/
 Confirm that wireshark was installed/updated:
 
 ![Wireshark test](./media/wiresharktest.png)
+
+The architecture at the end of this project looks like the diagram below:
+
+![Architecture](./media/archy2.png)
+
+
+## Additional Task 
 
 Ansible was updated with additional tasks to create a `sample` directory, `ansible.txt` file and change timezone in `playbook/common.yml`.
 
