@@ -188,7 +188,7 @@ ansible-playbook -i /var/lib/jenkins/jobs/ansible/builds/<build-number>/archive/
 
 ![Ansible task](./media/wireshark.png)
 
-Confirm if wireshark was installed/updated:
+Confirm that wireshark was installed/updated:
 
 ![Wireshark test](./media/wiresharktest.png)
 
