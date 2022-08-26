@@ -12,3 +12,5 @@ The aim of this project is to automate most of the tasks with Ansible Configurat
 The architecture at the end of this project looks like the diagram below:
 
 ![Architecture](./media/archy2.png)
+
+The full documentations is located [here](https://github.com/enyioman/project11/blob/main/project11.md).
