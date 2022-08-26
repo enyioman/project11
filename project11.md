@@ -1,10 +1,5 @@
 # Ansible Configuration Management - Automate Project 7 to 10
 
-## Task
-
-- Install and configure Ansible client to act as a Jump Server/Bastion Host.
-- Create a simple Ansible playbook to automate servers configuration.
-
 ## Step 1 - Install and configure Ansible on EC2 Instance
 
 We'll be using our Jenkins server from the previous project.
